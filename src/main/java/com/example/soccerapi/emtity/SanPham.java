@@ -1,8 +1,11 @@
 package com.example.soccerapi.emtity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 @Entity
 @Table(name = "sanpham")
@@ -14,16 +17,19 @@ public class SanPham {
     private String name;
     private double price;
     private String image;
-    @ManyToMany(mappedBy = "listSanPham")
-    @JsonBackReference
-    private List<Booking> booking;
-
-    public SanPham() {
-    }
 
     public SanPham(String name, double price) {
         this.name = name;
         this.price = price;
+        this.bookings = new ArrayList<>();
+    }
+
+    @ManyToMany(mappedBy = "sanPhams")
+    @JsonIgnore
+    private List<Booking> bookings;
+
+    public SanPham() {
+
     }
 
     public int getId() {
@@ -58,11 +64,21 @@ public class SanPham {
         this.image = image;
     }
 
-    public List<Booking> getBooking() {
-        return booking;
+
+
+    public List<Booking> getBookings() {
+        return bookings;
     }
 
-    public void setBooking(List<Booking> booking) {
-        this.booking = booking;
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
+    }
+
+    public boolean addBooking(Booking booking){
+        return this.bookings.add(booking);
+    }
+
+    public  boolean addBookings(Booking booking){
+        return  this.bookings.add(booking);
     }
 }

@@ -15,19 +15,13 @@ public class KhachHang {
     private String userName;
     private String passWord;
     private String phone;
-    private String image;
-    @OneToMany(mappedBy = "khachHang" ,cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "khachHang", cascade = CascadeType.ALL)
     @JsonManagedReference
-    private List<Booking> listBooking;
+    private List<Booking> bookings;
 
     public KhachHang() {
-    }
 
-    public KhachHang(String userName, String passWord, String phone) {
-        this.userName = userName;
-        this.passWord = passWord;
-        this.phone = phone;
-        this.listBooking= new ArrayList<>();
     }
 
     public int getId() {
@@ -62,23 +56,23 @@ public class KhachHang {
         this.phone = phone;
     }
 
-    public String getImage() {
-        return image;
+    public List<Booking> getBookings() {
+        return bookings;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
     }
 
-    public List<Booking> getListBooking() {
-        return listBooking;
+    public KhachHang(String userName, String passWord, String phone) {
+        this.userName = userName;
+        this.passWord = passWord;
+        this.phone = phone;
+        this.bookings= new ArrayList<>();
+
     }
 
-    public void setListBooking(List<Booking> listBooking) {
-        this.listBooking = listBooking;
-    }
-
-    public  boolean addBooking(Booking booking){
-       return this.listBooking.add(booking);
+    public boolean addBooking(Booking booking){
+      return  this.bookings.add(booking);
     }
 }

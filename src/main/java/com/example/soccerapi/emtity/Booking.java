@@ -3,6 +3,7 @@ package com.example.soccerapi.emtity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,29 +17,35 @@ public class Booking {
     private String paymentDate;
     private String timeSlot;
     private String bookingDate;
-    @ManyToOne
-    @JoinColumn(name = "khachhang_id",nullable = false,referencedColumnName = "khachhang_id")
-    @JsonBackReference
-    private KhachHang khachHang;
-    @ManyToOne
-    @JoinColumn(name = "sanbong_id",nullable = false,referencedColumnName = "sanbong_id")
-    @JsonBackReference
-    private SanBong sanBong;
-    @ManyToMany( cascade = CascadeType.ALL)
-    @JoinTable(name = "booking_sanpham",
-            joinColumns = @JoinColumn(name = "booking_id"),
-            inverseJoinColumns = @JoinColumn(name="sanpham_id")
-    )
-    private List<SanPham> listSanPham;
-
-    public Booking() {
-    }
 
     public Booking(double amountPaid, String paymentDate, String timeSlot, String bookingDate) {
         this.amountPaid = amountPaid;
         this.paymentDate = paymentDate;
         this.timeSlot = timeSlot;
         this.bookingDate = bookingDate;
+        this.sanPhams = new ArrayList<>();
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "khachhang_id", nullable = false, referencedColumnName = "khachhang_id")
+    @JsonBackReference
+    private KhachHang khachHang;
+
+    @ManyToOne
+    @JoinColumn(name = "sanbong_id", nullable = false, referencedColumnName = "sanbong_id")
+    @JsonBackReference
+    private SanBong sanBong;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "booking_sanpham",
+            joinColumns = @JoinColumn(name = "booking_id"),
+            inverseJoinColumns = @JoinColumn(name = "sanpham_id")
+    )
+    private List<SanPham> sanPhams;
+
+    public Booking() {
+        this.sanPhams = new ArrayList<>();
     }
 
     public int getId() {
@@ -97,11 +104,15 @@ public class Booking {
         this.sanBong = sanBong;
     }
 
-    public List<SanPham> getListSanPham() {
-        return listSanPham;
+    public List<SanPham> getSanPhams() {
+        return sanPhams;
     }
 
-    public void setListSanPham(List<SanPham> listSanPham) {
-        this.listSanPham = listSanPham;
+    public void setSanPhams(List<SanPham> sanPhams) {
+        this.sanPhams = sanPhams;
+    }
+
+    public boolean addSanPhams(SanPham sanPham){
+       return this.sanPhams.add(sanPham);
     }
 }

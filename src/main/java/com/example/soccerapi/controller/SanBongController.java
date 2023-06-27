@@ -21,9 +21,9 @@ public class SanBongController {
     List<SanBong> getAllKhachHang() {
         return sanBongService.getAllSanBong();
     }
-    @PostMapping("")
-    public  void  createBooking(){
-        SanBong sb = new SanBong();
-        sanBongService.saveSanBong(sb);
-    }
+//    @PostMapping("")
+//    public  void  createBooking(){
+//        SanBong sb = new SanBong();
+//        sanBongService.saveSanBong(sb);
+//    }
 }

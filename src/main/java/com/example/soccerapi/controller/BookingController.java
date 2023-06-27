@@ -29,9 +29,6 @@ public class BookingController {
         return service.getAllBooking();
     }
 
-
-
-
     @GetMapping("/{id}")
     List<Booking> getAllBookings(@PathVariable int id) {
         return service.getAllBookingId(id);

@@ -14,7 +14,7 @@ public class KhachHangReposense {
         kh.id = khachHang.getId();
         kh.userName = khachHang.getUserName();
         kh.phone = khachHang.getPhone();
-        kh.image = khachHang.getImage();
+
         kh.passWord= khachHang.getPassWord();
         return kh;
     }

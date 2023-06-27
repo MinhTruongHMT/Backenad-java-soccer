@@ -14,10 +14,7 @@ public class SanBong {
     private int id;
     private String name;
     private double price;
-    private  String diaChi;
-    @OneToMany(mappedBy = "sanBong" ,cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private List<Booking> listBooking;
+    private String diaChi;
 
     public SanBong() {
     }
@@ -26,11 +23,13 @@ public class SanBong {
         this.name = name;
         this.price = price;
         this.diaChi = diaChi;
-        this.listBooking = new ArrayList<>();
+        this.bookings = new ArrayList<>();
     }
-    public  boolean addBooking(Booking booking){
-        return this.listBooking.add(booking);
-    }
+
+    @OneToMany(mappedBy = "sanBong", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Booking> bookings;
+
     public int getId() {
         return id;
     }
@@ -63,11 +62,14 @@ public class SanBong {
         this.diaChi = diaChi;
     }
 
-    public List<Booking> getListBooking() {
-        return listBooking;
+    public List<Booking> getBookings() {
+        return bookings;
     }
 
-    public void setListBooking(List<Booking> listBooking) {
-        this.listBooking = listBooking;
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
+    }
+    public boolean addBooking(Booking booking){
+        return  this.bookings.add(booking);
     }
 }
